@@ -10,7 +10,7 @@ import Link from 'next/link';
  * @param {Array} linkData 
  * @returns Array of <Link> objects
  */
-export const genLinks = (linkData, style) => {    console.log('LINK DATA"', linkData)
+export const genLinks = (linkData, style) => {
     return linkData.map(data => {
         return (
             <Link href={data.path} key={data.linkText} className={style}>
