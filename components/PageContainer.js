@@ -1,3 +1,6 @@
+import Header from '@components/Header';
+import Footer from '@components/Footer';
+
 export default function PageContainer(content, info) {
     const headers = () => {
         return (
@@ -11,10 +14,12 @@ export default function PageContainer(content, info) {
 
     return (
         <div className="dark:bg-gray bg-gray">
+            <Header />
             {info.isShown ? headers() : ""}
             <div className="container mx-auto px-4 lg:px-8 p-8 lg:py-20">
                 {content}
             </div>
+            <Footer />
         </div>
     )
 }
