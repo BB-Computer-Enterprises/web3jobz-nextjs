@@ -13,8 +13,8 @@ import Link from 'next/link';
 export const genLinks = (linkData, style) => {
     return linkData.map(data => {
         return (
-            <Link href={data.path} key={data.linkText} className={style}>
-                {data.linkText}
+            <Link href={data.path} key={data.linkText}>
+                <a className={style}>{data.linkText}</a>
             </Link>
         );
     });
@@ -32,8 +32,8 @@ export const genLink = (linkText, path, style) => genLinks([{ linkText, path }],
 
 export const genFooterLink = (linkText, path, style) => {
     return (
-        <Link href={path} key={linkText} className={style}>
-            {linkText}
+        <Link href={path} key={linkText}>
+            <a className={style}>{linkText}</a>
         </Link>
     )
 }

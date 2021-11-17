@@ -9,7 +9,7 @@ export default function Home() {
     <div>
       <Head>
         <title>Web3J☁bs</title>
-        <meta charset="utf-8" />
+        <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
         <script src="https://ten-fetching.web3jobz.com/script.js" data-site="ZDCAIQIO" defer></script>
