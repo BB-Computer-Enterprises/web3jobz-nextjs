@@ -53,17 +53,19 @@ const AllCompaniesPage = () => {
     const genCompanies = companyData => {
         return (
             companyData.map(company => (
-                <Link key={company[COMPANY_ID]} href={{ pathname: generateLinkURL(company), state: { company } }} className={`${company[COMPANY_FEATURED] ? FEATURED_STYLE : REGULAR_STYLE}`}>
-                    <div className="lg:px-4 py-4 flex items-center">
-                        {genListIcon(company[COMPANY_ICON_URL], "", company[COMPANY_FEATURED])}
-                        <div className="flex-1 lg:pl-8 pl-5 flex items-center justify-between">
-                            <div>
-                                <h1 className={`${company[COMPANY_FEATURED] ? FEATURED_TEXT_STYLE : REGULAR_TEXT_STYLE}`}>{company[COMPANY_NAME]}</h1>
-                                <p className="text-white lg:ml-1 flex-shrink-0 font-normal overflow-hidden">{company[COMPANY_DESCRIPTION]}</p>
+                <div key={company[COMPANY_ID]} className={`${company[COMPANY_FEATURED] ? FEATURED_STYLE : REGULAR_STYLE}`}>
+                    <Link passHref href={{ pathname: generateLinkURL(company), state: { company } }}>
+                        <div className="lg:px-4 py-4 flex items-center">
+                            {genListIcon(company[COMPANY_ICON_URL], "", company[COMPANY_FEATURED])}
+                            <div className="flex-1 lg:pl-8 pl-5 flex items-center justify-between">
+                                <div>
+                                    <h1 className={`${company[COMPANY_FEATURED] ? FEATURED_TEXT_STYLE : REGULAR_TEXT_STYLE}`}>{company[COMPANY_NAME]}</h1>
+                                    <p className="text-white lg:ml-1 flex-shrink-0 font-normal overflow-hidden">{company[COMPANY_DESCRIPTION]}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </Link>
+                    </Link>
+                </div>
             ))
         )
     }
@@ -86,7 +88,7 @@ const AllCompaniesPage = () => {
     }
 
     return (
-        PageContainer(getContent(), {title: COMPANIES_PAGE_TITLE, isShown: true})
+        PageContainer(getContent(), { title: COMPANIES_PAGE_TITLE, isShown: true })
     );
 }
 
