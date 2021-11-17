@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CheckCircleIcon, XIcon } from '@heroicons/react/solid'
-import { HOME_PAGE_FETCH_URL, HOME_PAGE_API_KEY } from "@constants/"
+import { HOME_PAGE_FETCH_URL, HOME_PAGE_API_KEY } from "@constants/*"
 import { getLinkCard } from "@util/genLinkCard";
 
 export default function HomePage() {
