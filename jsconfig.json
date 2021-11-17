@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@config/*": [
+                "src/config/*"
+            ],
+            "@db": [
+                "src/lib/db.js"
+            ],
+            "@util/*": [
+                "src/util/*"
+            ],
+            "@components/*": [
+                "components/*"
+            ],
+            "@constants/*": [
+                "src/config/constants.js"
+            ]
+        }
+    }
+}
