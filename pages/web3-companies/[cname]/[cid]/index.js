@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { useRouter } from 'next/router';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/solid';
-import PageContainer from "../PageContainer";
+import PageContainer from "@components/PageContainer";
 import { getLinkedJobs, getSingleCompany } from "@db/";
 import { getLinkCard } from "@util/genLinkCard";
 import {
@@ -12,8 +13,8 @@ import {
     REFER_URL,
     HOME_PAGE_FETCH_URL,
     HOME_PAGE_API_KEY
-} from "@constants/";
-import JobsList from "../JobsList";
+} from "@constants/*";
+import JobsList from "@components/JobsList";
 
 const CompanyPage = company => {
     const [linkedJobs, setJobs] = useState([]);
@@ -23,6 +24,8 @@ const CompanyPage = company => {
     const [isLoading, setIsLoading] = useState(true);
     const [email, setEmail] = useState("");
 
+    const router = useRouter();
+
     const headerInfo = {
         title: `Web3 ${currentCompany[COMPANY_NAME]}`,
         imageURL: currentCompany[COMPANY_ICON_URL],
@@ -30,8 +33,23 @@ const CompanyPage = company => {
     }
 
     useEffect(() => {
-        populateData().catch(console.error)
+        const { cname, cid } = router.query
+        setCompany(cname);
+
+        const getJobs = async () => {
+            let { data: linkedJobs, linkedError } = await getLinkedJobs(cid);
+            if (linkedError) setError(linkedError);
+            else setJobs(linkedJobs);
+        }
+
+        setIsLoading(false);
+
+        // populateData().catch(console.error)
     }, []);
+
+    
+
+    console.log('QUERY: ',router.query)
 
     const populateData = async () => {
         const getJobs = async id => {

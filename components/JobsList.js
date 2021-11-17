@@ -1,5 +1,5 @@
 
-import { Link } from "react-router-dom";
+import Link from 'next/link';
 import { makeFriendlyUrl } from "@util/sanitize";
 import { daysElapsed } from "@util/daysElapsed";
 import {
@@ -16,8 +16,10 @@ import {
     FEATURED_TEXT_STYLE,
     REGULAR_TEXT_STYLE,
     REFER_URL
-} from "@constants/";
-import { genListIcon, genFooterLink, genTagsUrl } from "@util/";
+} from "@constants/*";
+import { genListIcon } from "@util/genListIcon";
+import { genFooterLink } from '@util/genLinks';
+import { genTagsUrl } from '@util/genTagsUrl';
 
 // function that will destructure the job object
 // it pulls out the title, id and company name to be used in the URL
@@ -57,6 +59,8 @@ const JobsList = ({ jobs }) => {
     return (
         jobs.map(job => {
             const company = getCompany(job);
+
+            console.log('JOB:::', job)
 
             return (
                 <Link key={job[JOB_ID]} to={{ pathname: generateLinkURL(job), state: { job } }} className={`${company[COMPANY_FEATURED] ? FEATURED_STYLE : REGULAR_STYLE}`}>
