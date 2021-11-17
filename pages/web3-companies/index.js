@@ -1,6 +1,6 @@
+import Link from 'next/link';
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import PageContainer from "../PageContainer";
+import PageContainer from '@components/PageContainer';
 import {
     getAllCompaniesInAlphabetic,
     getFeaturedCompanies
@@ -18,7 +18,7 @@ import {
     COMPANY_ICON_URL,
     FEATURED_TEXT_STYLE,
     REGULAR_TEXT_STYLE
-} from "@constants/";
+} from "@constants/*";
 import { makeFriendlyUrl } from "@util/sanitize";
 import { loading } from "@util/loading";
 import { genListIcon } from "@util/genListIcon";
@@ -53,7 +53,7 @@ const AllCompaniesPage = () => {
     const genCompanies = companyData => {
         return (
             companyData.map(company => (
-                <Link key={company[COMPANY_ID]} to={{ pathname: generateLinkURL(company), state: { company } }} className={`${company[COMPANY_FEATURED] ? FEATURED_STYLE : REGULAR_STYLE}`}>
+                <Link key={company[COMPANY_ID]} href={{ pathname: generateLinkURL(company), state: { company } }} className={`${company[COMPANY_FEATURED] ? FEATURED_STYLE : REGULAR_STYLE}`}>
                     <div className="lg:px-4 py-4 flex items-center">
                         {genListIcon(company[COMPANY_ICON_URL], "", company[COMPANY_FEATURED])}
                         <div className="flex-1 lg:pl-8 pl-5 flex items-center justify-between">
