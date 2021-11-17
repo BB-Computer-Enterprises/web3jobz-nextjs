@@ -1,7 +1,7 @@
 import { getAll } from "./dbCommon";
 import {
     TAGS_TABLE
-} from "@constants/";
+} from "@constants/*";
 
 //*********TAGS SECTION
 

@@ -8,7 +8,7 @@ import {
     JOB_DATE_POSTED,
     JOB_ID,
     JOB_TAGS
-} from "@constants/";
+} from "@constants/*";
 
 //*********JOBS SECTION
 

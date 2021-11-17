@@ -5,8 +5,8 @@
             "@config/*": [
                 "src/config/*"
             ],
-            "@db/*": [
-                "src/lib/db"
+            "@db": [
+                "src/lib/db.js"
             ],
             "@util/*": [
                 "src/util/*"

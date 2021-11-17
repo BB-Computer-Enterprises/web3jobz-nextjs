@@ -1,4 +1,4 @@
-import { JOBS_URL } from "@constants/";
+import { JOBS_URL } from "@constants/*";
 import { makeFriendlyUrl } from '@util/sanitize';
 
 // function thatcreate the Jobs Tag URL

@@ -32,7 +32,7 @@ export const genLink = (linkText, path, style) => genLinks([{ linkText, path }],
 
 export const genFooterLink = (linkText, path, style) => {
     return (
-        <Link to={path} key={linkText} className={style}>
+        <Link href={path} key={linkText} className={style}>
             {linkText}
         </Link>
     )

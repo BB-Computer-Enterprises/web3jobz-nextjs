@@ -1,8 +1,8 @@
 import { supabase } from "../api";
 import {
+    TIER_FREE, TIER_POPULAR,
     POST_JOB_TABLE
-} from "@constants/";
-import { TIER_FREE, TIER_POPULAR } from "@config/constants";
+} from "@constants/*";
 
 export const postAJob = jobData => {
     const {priceSelection: planTier,

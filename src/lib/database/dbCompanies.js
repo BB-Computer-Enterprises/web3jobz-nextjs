@@ -4,7 +4,7 @@ import {
     COMPANY_NAME,
     COMPANY_TABLE,
     COMPANY_FEATURED
-} from "@constants/";
+} from "@constants/*";
 
 //*********COMPANIES SECTION
 

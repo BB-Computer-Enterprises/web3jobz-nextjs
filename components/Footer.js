@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { getAllTags } from "@db/";
-import { genFooterLink, genTagsUrl } from "@util/";
+import { getAllTags } from "@db";
+import { genFooterLink } from "@util/genLinks";
+import { genTagsUrl } from "@util/genTagsUrl";
 import {capitalize } from '@util/sanitize';
 
 // This is what we will ultimately return
