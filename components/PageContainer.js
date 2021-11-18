@@ -5,8 +5,8 @@ export default function PageContainer(content, info) {
     const headers = () => {
         return (
             <div>
-                <h2 className='lg:text-6xl text-4xl font-bold text-white text-center pt-10 pb-5 lg:py-10'>{info.title}</h2>
-                <h3 className='lg:text-4xl text-2xl font-bold text-white text-center font-mono'>{info.subtitle}</h3>
+                <h1 className='lg:text-6xl text-4xl font-bold text-white text-center pt-10 pb-5 lg:py-10'>{info.title}</h1>
+                <h2 className='lg:text-4xl text-2xl font-bold text-white text-center font-mono'>{info.subtitle}</h2>
             </div>
         )
 
