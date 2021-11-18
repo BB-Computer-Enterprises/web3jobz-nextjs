@@ -49,7 +49,7 @@ const CompanyPage = company => {
 
     
 
-    console.log('QUERY: ',router.query)
+    console.log('QUERY: ',JSON.parse(router.query.data))
 
     const populateData = async () => {
         const getJobs = async id => {

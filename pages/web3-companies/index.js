@@ -54,7 +54,7 @@ const AllCompaniesPage = () => {
         return (
             companyData.map(company => (
                 <div key={company[COMPANY_ID]} className={`${company[COMPANY_FEATURED] ? FEATURED_STYLE : REGULAR_STYLE}`}>
-                    <Link passHref href={{ pathname: generateLinkURL(company), state: { company } }}>
+                    <Link passHref  href={{ pathname: generateLinkURL(company), query: {data: JSON.stringify(company)}}} as={{pathname: generateLinkURL(company), query: {}}}>
                         <div className="lg:px-4 py-4 flex items-center">
                             {genListIcon(company[COMPANY_ICON_URL], "", company[COMPANY_FEATURED])}
                             <div className="flex-1 lg:pl-8 pl-5 flex items-center justify-between">
