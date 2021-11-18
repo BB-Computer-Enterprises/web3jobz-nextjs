@@ -63,7 +63,7 @@ const JobsList = ({ jobs }) => {
             console.log('JOB:::', job)
 
             return (
-                <Link key={job[JOB_ID]} to={{ pathname: generateLinkURL(job), state: { job } }} className={`${company[COMPANY_FEATURED] ? FEATURED_STYLE : REGULAR_STYLE}`}>
+                <Link passHref key={job[JOB_ID]} href={{ pathname: generateLinkURL(job), state: { job } }} className={`${company[COMPANY_FEATURED] ? FEATURED_STYLE : REGULAR_STYLE}`}>
                     <div className="py-4 flex items-center">
                         {genListIcon(company[COMPANY_ICON_URL], "", company[COMPANY_FEATURED])}
                         <div className="flex-1 pl-8 flex items-center justify-between">
