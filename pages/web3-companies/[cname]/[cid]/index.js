@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { useRouter } from 'next/router';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/solid';
-import PageContainer from "../PageContainer";
+import PageContainer from "@components/PageContainer";
 import { getLinkedJobs, getSingleCompany } from "@db/";
 import { getLinkCard } from "@util/genLinkCard";
 import {
@@ -12,49 +13,68 @@ import {
     REFER_URL,
     HOME_PAGE_FETCH_URL,
     HOME_PAGE_API_KEY
-} from "@constants/";
-import JobsList from "../JobsList";
+} from "@constants/*";
+import JobsList from "@components/JobsList";
 
 const CompanyPage = company => {
-    const [linkedJobs, setJobs] = useState([]);
+    // const [linkedJobs, setJobs] = useState([]);
     const [thankYouVisible, setThankYouVisible] = useState(false);
-    const [currentCompany, setCompany] = useState(company);
+    // const [currentCompany, setCompany] = useState(company);
     const [errorText, setError] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const [email, setEmail] = useState("");
 
+    console.log('COMPANY: ', company)
+
+    // const router = useRouter();
+
     const headerInfo = {
-        title: `Web3 ${currentCompany[COMPANY_NAME]}`,
-        imageURL: currentCompany[COMPANY_ICON_URL],
-        description: `Web3 Company: ${currentCompany[COMPANY_DESCRIPTION]}`
+        title: `Web3 ${company.currentCompany[COMPANY_NAME]}`,
+        imageURL: company.currentCompany[COMPANY_ICON_URL],
+        description: `Web3 Company: ${company.currentCompany[COMPANY_DESCRIPTION]}`
     }
 
     useEffect(() => {
-        populateData().catch(console.error)
-    }, []);
+        // const { cname, cid } = router.query
+        // setCompany(cname);
 
-    const populateData = async () => {
-        const getJobs = async id => {
-            let { data: linkedJobs, linkedError } = await getLinkedJobs(id);
-            if (linkedError) setError(linkedError);
-            else setJobs(linkedJobs);
-        }
-
-        if (company?.location?.state?.company) {
-            setCompany(company.location.state.company)
-            getJobs(company.location.state.company[COMPANY_ID])
-        }
-        else {
-            const id = company.match.params.cid;
-            let { data: currCompany, error } = await getSingleCompany(id);
-            if (error) setError(error);
-            else setCompany(currCompany[0]);
-
-            getJobs(id)
-        }
+        // const getJobs = async () => {
+        //     let { data: company.linkedJobs, linkedError } = await getcompany.linkedJobs(cid);
+        //     if (linkedError) setError(linkedError);
+        //     else setJobs(company.linkedJobs);
+        // }
 
         setIsLoading(false);
-    }
+
+        // populateData().catch(console.error)
+    }, []);
+
+
+
+    // console.log('QUERY: ',JSON.parse(router.query.data))
+
+    // const populateData = async () => {
+    //     const getJobs = async id => {
+    //         let { data: linkedJobs, linkedError } = await getcompany.linkedJobs(id);
+    //         if (linkedError) setError(linkedError);
+    //         else setJobs(company.linkedJobs);
+    //     }
+
+    //     if (company?.location?.state?.company) {
+    //         setCompany(company.location.state.company)
+    //         getJobs(company.location.state.company[COMPANY_ID])
+    //     }
+    //     else {
+    //         const id = company.match.params.cid;
+    //         let { data: currCompany, error } = await getSingleCompany(id);
+    //         if (error) setError(error);
+    //         else setCompany(currCompany[0]);
+
+    //         getJobs(id)
+    //     }
+
+    //     setIsLoading(false);
+    // }
 
     const stats = [
         { name: 'You\'ll be working with', stat: 'React' },
@@ -135,7 +155,7 @@ const CompanyPage = company => {
                 <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center">
                     <div className="lg:w-0 lg:flex-1">
                         <h2 className="text-2xl font-extrabold tracking-tight text-white sm:text-4xl" id="newsletter-headline">
-                            Get weekly alerts for web3 jobs at {currentCompany[COMPANY_NAME]} and others 👉
+                            Get weekly alerts for web3 jobs at {company.currentCompany[COMPANY_NAME]} and others 👉
                         </h2>
                     </div>
                     <div className="mt-8 lg:mt-0 lg:ml-8">
@@ -176,7 +196,7 @@ const CompanyPage = company => {
     }
 
     const genUrlWithRefer = () => {
-        return `${currentCompany[COMPANY_URL]}${REFER_URL}`;
+        return `${company.currentCompany[COMPANY_URL]}${REFER_URL}`;
     }
 
     const getContent = () => {
@@ -189,23 +209,23 @@ const CompanyPage = company => {
                             <span className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
                                 <div><img
                                     className="inline-block h-24 w-24 rounded-full"
-                                    src={currentCompany[COMPANY_ICON_URL]}
+                                    src={company.currentCompany[COMPANY_ICON_URL]}
                                     alt=""
                                 /></div>
-                                {currentCompany[COMPANY_NAME]}
+                                {company.currentCompany[COMPANY_NAME]}
                             </span>
                         </h1>
                         <p className="mt-8 text-2xl text-gray-500 leading-8">
-                            {currentCompany[COMPANY_DESCRIPTION]}
+                            {company.currentCompany[COMPANY_DESCRIPTION]}
                         </p>
                         <p className="mt-8 text-2xl text-gray-500 leading-8">
-                            <p>🔗: <a href={`${genUrlWithRefer()}`}>{currentCompany[COMPANY_URL]}</a></p>
+                            <p>🔗: <a href={`${genUrlWithRefer()}`}>{company.currentCompany[COMPANY_URL]}</a></p>
                         </p>
                         {cards()}
                     </div>
                     <h1 className="mt-8 text-2xl leading-8 mb-5">Current jobs 👇</h1>
                     <div className="">
-                        <JobsList jobs={linkedJobs} isLoading />
+                        <JobsList jobs={company.linkedJobs} isLoading />
                     </div>
                 </div>
                 {thankYouVisible ? thankYou() : getEmailSection()}
@@ -219,3 +239,25 @@ const CompanyPage = company => {
 };
 
 export default CompanyPage;
+
+export async function getServerSideProps({ params, query }) {
+    // if (query.text) {
+    //   return { redirect: { destination: '/post', permanent: false, },}
+    // }
+
+    console.log('QUERY: ', query)
+
+    let { data: currCompany, error } = await getSingleCompany(query.cid);
+    let { data: linkedJobs, linkedError } = await getLinkedJobs(query.cid);
+
+    // console.log('CURR: ', currCompany)
+    // console.log('JOB: ', company.linkedJobs)
+
+    if (!currCompany[0] && !company.linkedJobs) return { notFound: true, }
+    return {
+        props: {
+            currentCompany: currCompany[0],
+            linkedJobs
+        }
+    }
+}

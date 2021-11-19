@@ -23,26 +23,26 @@ import { makeFriendlyUrl } from "@util/sanitize";
 import { loading } from "@util/loading";
 import { genListIcon } from "@util/genListIcon";
 
-const AllCompaniesPage = () => {
-    const [companies, setCompanies] = useState([]);
-    const [featuredCompanies, setFeaturedCompanies] = useState([]);
+const AllCompaniesPage = allCompanies => {
+    // const [companies, setCompanies] = useState([]);
+    // const [featuredCompanies, setFeaturedCompanies] = useState([]);
     const [errorText, setError] = useState("");
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        fetchCompanies().catch(console.error);
-    }, []);
+    // useEffect(() => {
+    //     fetchCompanies().catch(console.error);
+    // }, []);
 
-    const fetchCompanies = async () => {
-        let { data: companies, error } = await getAllCompaniesInAlphabetic();
-        let { data: featuredCompanies, featuredError } = await getFeaturedCompanies();
-        if (error || featuredError) setError(error || featuredError);
-        else {
-            setFeaturedCompanies(featuredCompanies)
-            setCompanies(companies)
-            setIsLoading(false);
-        };
-    };
+    // const fetchCompanies = async () => {
+    //     let { data: companies, error } = await getAllCompaniesInAlphabetic();
+    //     let { data: featuredCompanies, featuredError } = await getFeaturedCompanies();
+    //     if (error || featuredError) setError(error || featuredError);
+    //     else {
+    //         setFeaturedCompanies(featuredCompanies)
+    //         setCompanies(companies)
+    //         setIsLoading(false);
+    //     };
+    // };
 
     // function that will destructure the company object
     const generateLinkURL = company => {
@@ -54,12 +54,12 @@ const AllCompaniesPage = () => {
         return (
             companyData.map(company => (
                 <div key={company[COMPANY_ID]} className={`${company[COMPANY_FEATURED] ? FEATURED_STYLE : REGULAR_STYLE}`}>
-                    <Link passHref href={{ pathname: generateLinkURL(company), state: { company } }}>
+                    <Link passHref  href={{ pathname: generateLinkURL(company)}}>
                         <div className="lg:px-4 py-4 flex items-center">
                             {genListIcon(company[COMPANY_ICON_URL], "", company[COMPANY_FEATURED])}
                             <div className="flex-1 lg:pl-8 pl-5 flex items-center justify-between">
                                 <div>
-                                    <h1 className={`${company[COMPANY_FEATURED] ? FEATURED_TEXT_STYLE : REGULAR_TEXT_STYLE}`}>{company[COMPANY_NAME]}</h1>
+                                    <h3 className={`${company[COMPANY_FEATURED] ? FEATURED_TEXT_STYLE : REGULAR_TEXT_STYLE}`}>{company[COMPANY_NAME]}</h3>
                                     <p className="text-white lg:ml-1 flex-shrink-0 font-normal overflow-hidden">{company[COMPANY_DESCRIPTION]}</p>
                                 </div>
                             </div>
@@ -73,11 +73,11 @@ const AllCompaniesPage = () => {
     const getContent = () => {
         return (
             <div className={`${isLoading ? "" : "shadow-2xl"} bg-gray-dark overflow-hidden rounded-md`}>
-                <span className={"h-full justify-center items-center"} >
+                {/* <span className={"h-full justify-center items-center"} >
                     {isLoading ? loading() : ''}
-                </span>
-                {genCompanies(featuredCompanies)}
-                {genCompanies(companies)}
+                </span> */}
+                {genCompanies(allCompanies.featuredCompanies)}
+                {genCompanies(allCompanies.companies)}
                 {!!errorText && (
                     <div className={"border max-w-sm self-center px-4 py-2 mt-4 text-center text-sm bg-red-100 border-red-300 text-red-400"}>
                         {errorText}
@@ -93,3 +93,23 @@ const AllCompaniesPage = () => {
 }
 
 export default AllCompaniesPage;
+
+export async function getServerSideProps() {
+    let { data: companies, error } = await getAllCompaniesInAlphabetic();
+    let { data: featuredCompanies, featuredError } = await getFeaturedCompanies();
+
+    if (error || featuredError){
+        setError(error || featuredError);
+        return { notFound: true, }
+    } 
+    else {
+        // setIsLoading(false);
+
+        return {
+            props:{
+                companies,
+                featuredCompanies
+            }
+        }
+    };
+}
