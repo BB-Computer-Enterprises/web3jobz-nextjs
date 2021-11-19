@@ -1,4 +1,5 @@
 export const genListIcon = (src, alt, isFeatured) => {
+    console.log("SRC",src);
     return (
         <span className="inline-block relative">
             <img
